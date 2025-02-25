@@ -1,11 +1,11 @@
 public class PersonalAccount {
   private int id;
   private Double balance;
-  private String currency;
-  // add account number
+  private String currency; // String up to ten characters
+  private int accountNumber;
 
   public PersonalAccount(String currency) {
-    this.balance = 0.0;
+    this.balance = 0.00;
     try {
       currency = currency.toUpperCase();
       SupportedCurrencies supported = SupportedCurrencies.valueOf(currency);
@@ -13,6 +13,10 @@ public class PersonalAccount {
     } catch (IllegalArgumentException ex) {
       System.out.println("❌ Currency " + currency + " is not supported.");
     }
+  }
+
+  public int getId() {
+    return id;
   }
 
   public double getBalance() {
@@ -23,8 +27,12 @@ public class PersonalAccount {
     return currency;
   }
 
+  public int getAccountNumber() {
+    return accountNumber;
+  }
+
   public double deposit(double amount) {
-    if (amount > 0.0) {
+    if (amount > 0.00) {
       balance = balance + amount;
     }
     return balance;

@@ -14,5 +14,9 @@ public class Main {
     PersonalAccount personal_2 = new PersonalAccount("eur");
 
     
+    System.out.println(personal_1.getId());
+    System.out.println(personal_2.getId());
+
+    
   }
 }
