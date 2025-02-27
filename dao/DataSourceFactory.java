@@ -2,7 +2,7 @@ package dao;
 import java.io.IOException;
 import java.util.Properties;
 import javax.sql.DataSource;
-import com.mysql.cj.jdbc.MysqlDataSource;
+// import com.mysql.cj.jdbc.MysqlDataSource;
 
 
 public class DataSourceFactory {
@@ -22,14 +22,14 @@ public class DataSourceFactory {
     return instance;
   }
 
-  public DataSource getDataSource() {
-    MysqlDataSource datasource = new MysqlDataSource();
-      datasource.setURL(properties.getProperty(("DB_URL")));
-      datasource.setUser(properties.getProperty(("DB_USER")));
-      datasource.setPassword(properties.getProperty(("DB_PASSWORD")));
+  // public DataSource getDataSource() {
+  //   MysqlDataSource datasource = new MysqlDataSource();
+  //     datasource.setURL(properties.getProperty(("DB_URL")));
+  //     datasource.setUser(properties.getProperty(("DB_USER")));
+  //     datasource.setPassword(properties.getProperty(("DB_PASSWORD")));
 
-      return datasource;
-  }
+  //     return datasource;
+  // }
 }
 
 // add maven 

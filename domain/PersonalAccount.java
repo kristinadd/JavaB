@@ -1,10 +1,12 @@
 public class PersonalAccount {
+  private static int count = 0;
   private int id;
-  private Double balance;
+  private Double balance; // two .00
   private String currency; // String up to ten characters
   private int accountNumber;
 
   public PersonalAccount(String currency) {
+    this.id = count++;
     this.balance = 0.00;
     try {
       currency = currency.toUpperCase();

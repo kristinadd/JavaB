@@ -1,14 +1,14 @@
-package dao;
+// package dao;
 
-import javax.sql.DataSource;
+// import javax.sql.DataSource;
 
-public class PersonalAccountDAO {
+// public class PersonalAccountDAO {
   
-   private DataSource datasource;
+//    private DataSource datasource;
 
-  public PersonalAccountDAO() {
-    this.datasource = DataSourceFactory.instance().getDataSource();
-  }
+//   public PersonalAccountDAO() {
+//     this.datasource = DataSourceFactory.instance().getDataSource();
+//   }
 
   
-}
+// }
