@@ -19,16 +19,27 @@ public class AccountManager {
       System.out.println(i + ": "+ options[i]);
     }
 
-    for() {
-
-    }
 
     int input = scanner.nextInt();
-    int currency =  currencyInput.nextInt();
 
-    if (input == 0) {
-      PersonalAccount personalAccount = new PersonalAccount();
+    switch (input) {
+      case 0:
+        System.out.println("Choose currency");
+        Currency[] currencies = Currency.values();
+        for (int i=0; i<currencies.length; i++) {
+          System.out.println(i + ": " + currencies[i]);
+        }
+
+        input = scanner.nextInt();
+
+        if (input == 2) {
+          PersonalAccount account = new PersonalAccount("USD");
+          System.out.println(account);
+        }
+
+        break;
+      default:
+        System.out.println("Invalid choice. Please try again.");
     }
-
   }
 }

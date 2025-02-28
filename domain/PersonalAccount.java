@@ -10,11 +10,12 @@ public class PersonalAccount {
     this.balance = 0.00;
     try {
       currency = currency.toUpperCase();
-      SupportedCurrencies supported = SupportedCurrencies.valueOf(currency);
+      Currency supported = Currency.valueOf(currency);
       this.currency = supported.name();
     } catch (IllegalArgumentException ex) {
       System.out.println("❌ Currency " + currency + " is not supported.");
     }
+    this.accountNumber = 1234567;
   }
 
   public int getId() {
@@ -49,5 +50,16 @@ public class PersonalAccount {
     }
 
     return balance;
+  }
+
+  @Override
+  public String toString() {
+    return String.format(
+      "id: %d\nbalance: %.2f\ncurrency: %s\naccountNumber: %d", 
+      this.id, 
+      this.balance, 
+      this.currency, 
+      this.accountNumber
+    );
   }
 }

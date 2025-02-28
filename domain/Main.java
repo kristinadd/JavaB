@@ -3,7 +3,5 @@ public class Main {
     AccountManager accountManager = new AccountManager();
 
     accountManager.manage();
-
-    
   }
 }
