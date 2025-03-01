@@ -1,21 +1,17 @@
 public class PersonalAccount {
-  private static int count = 0;
+  private static int idCount = 1;
+  private static int accountNumberCount = 11111;
+  //
   private int id;
-  private Double balance; // two .00
-  private String currency; // String up to ten characters
+  private Double balance;
+  private Currency currency;
   private int accountNumber;
 
-  public PersonalAccount(String currency) {
-    this.id = count++;
+  public PersonalAccount(Currency currency) {
+    this.id = idCount++;
     this.balance = 0.00;
-    try {
-      currency = currency.toUpperCase();
-      Currency supported = Currency.valueOf(currency);
-      this.currency = supported.name();
-    } catch (IllegalArgumentException ex) {
-      System.out.println("❌ Currency " + currency + " is not supported.");
-    }
-    this.accountNumber = 1234567;
+    this.currency = currency;
+    this.accountNumber = accountNumberCount++;
   }
 
   public int getId() {
@@ -26,7 +22,7 @@ public class PersonalAccount {
     return balance;
   }
 
-  public String getCurrency() {
+  public Currency getCurrency() {
     return currency;
   }
 

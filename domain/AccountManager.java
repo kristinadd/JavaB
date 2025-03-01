@@ -2,16 +2,16 @@ import java.util.Scanner;
 
 public class AccountManager {
   Scanner scanner = new Scanner(System.in);
-  Scanner currencyInput = new Scanner(System.in);
   
   public void manage() {
-    while (true) {
-      menu();
-      int input = scanner.nextInt();
+    boolean keepRuning = true;
+    while (keepRuning) {
+      mainMenu();
+      int userChoice = scanner.nextInt();
 
-      switch (input) {
+      switch (userChoice) {
         case 0:
-          optionZero();
+          createAccount();
           break;
         case 1:
             System.out.println("Option is not available");
@@ -19,21 +19,26 @@ public class AccountManager {
         case 2:
           System.out.println("Option is not available");
             break;
+        case 3:
+          keepRuning = false;
+          System.out.println("👋 Bye");
+          break;
         default:
           System.out.println("Invalid choice. Please try again.");
       }
     }
   }
 
-  public void menu() {
+  public void mainMenu() {
     System.out.println("-------------------------");
     System.out.println("🏧⭐️🏧 Online Bank 🏧⭐️🏧");
     System.out.println("-------------------------");
-    
+
     String[] options = {
       "Create account",
-      "Some other option",
-      "And another option"
+      "Deposit",
+      "Withdraw",
+      "Exit"
     };
 
     for (int i=0; i<options.length; i++) {
@@ -41,18 +46,42 @@ public class AccountManager {
     }
   }
 
-  public void optionZero() {
-    System.out.println("Choose currency");
+  public void createAccount() {
+    PersonalAccount account;
+    boolean keepRuning = true;
+
+    while (keepRuning) {
+      System.out.println("Choose currency");
+      loadCurrencies();
+      int userChoice = scanner.nextInt();
+
+      switch (userChoice) {
+        case 0:
+          account = new PersonalAccount(Currency.valueOf("EUR"));
+          keepRuning = false;
+          System.out.println(account);
+          break;
+        case 1:
+          account = new PersonalAccount(Currency.valueOf("GBP"));
+          System.out.println(account);
+          keepRuning = false;
+            break;
+        case 2:
+          account = new PersonalAccount(Currency.valueOf("USD"));
+          keepRuning = false;
+          System.out.println(account);
+            break;
+        default:
+          keepRuning = true;
+          System.out.println("Invalid choice. Please try again.");
+      }
+    }
+  }
+
+  public void loadCurrencies() {
     Currency[] currencies = Currency.values();
     for (int i=0; i<currencies.length; i++) {
       System.out.println(i + ": " + currencies[i]);
-    }
-
-    int input = scanner.nextInt();
-
-    if (input == 2) {
-      PersonalAccount account = new PersonalAccount("USD");
-      System.out.println(account);
     }
   }
 }
