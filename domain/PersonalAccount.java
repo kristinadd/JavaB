@@ -1,7 +1,6 @@
 public class PersonalAccount {
   private static int idCount = 1;
   private static int accountNumberCount = 11111;
-  //
   private int id;
   private Double balance;
   private Currency currency;
@@ -10,7 +9,10 @@ public class PersonalAccount {
   public PersonalAccount(Currency currency) {
     this.id = idCount++;
     this.balance = 0.00;
-    this.currency = currency;  // can't be null
+    if (currency == null) {
+      throw new IllegalArgumentException("Currency cannot be null");
+    }
+    this.currency = currency;
     this.accountNumber = accountNumberCount++;
   }
 
@@ -38,13 +40,13 @@ public class PersonalAccount {
   }
 
   public double withdraw(double amount) {
-    if (amount > balance) {
-      System.out.println("❌ Insufficient funds. Your current balance is: " + balance);
-      return balance;
-    } else {
-      balance = balance - amount;
+    if (amount <= 0) {
+        throw new IllegalArgumentException("Withdrawal amount must be positive.");
     }
-
+    if (amount > balance) {
+        throw new InsufficientFundsException("Insufficient funds. Your current balance is: " + balance);
+    }
+    balance -= amount;
     return balance;
   }
 
