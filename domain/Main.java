@@ -1,6 +1,6 @@
 public class Main {
   public static void main(String args[]) {
-    AccountManager accountManager = new AccountManager();
+    AccountManager accountManager = AccountManager.getInstance();
 
     accountManager.manage();
   }

@@ -1,8 +1,16 @@
 import java.util.Scanner;
 
 public class AccountManager {
-  Scanner scanner = new Scanner(System.in);
-  
+  private static AccountManager instance = new AccountManager();
+  private PersonalAccountService service = new PersonalAccountService();
+  private Scanner scanner = new Scanner(System.in);
+
+  private AccountManager() {}
+
+  public static AccountManager getInstance() {
+    return instance;
+  }
+
   public void manage() {
     boolean keepRuning = true;
     while (keepRuning) {
@@ -11,7 +19,7 @@ public class AccountManager {
 
       switch (userChoice) {
         case 0:
-          createAccount();
+            createAccount();
           break;
         case 1:
             System.out.println("Option is not available");
@@ -46,42 +54,36 @@ public class AccountManager {
     }
   }
 
-  public void createAccount() {
-    PersonalAccount account;
-    boolean keepRuning = true;
-
-    while (keepRuning) {
-      System.out.println("Choose currency");
-      loadCurrencies();
-      int userChoice = scanner.nextInt();
-
-      switch (userChoice) {
-        case 0:
-          account = new PersonalAccount(Currency.valueOf("EUR"));
-          keepRuning = false;
-          System.out.println(account);
-          break;
-        case 1:
-          account = new PersonalAccount(Currency.valueOf("GBP"));
-          System.out.println(account);
-          keepRuning = false;
-            break;
-        case 2:
-          account = new PersonalAccount(Currency.valueOf("USD"));
-          keepRuning = false;
-          System.out.println(account);
-            break;
-        default:
-          keepRuning = true;
-          System.out.println("Invalid choice. Please try again.");
-      }
-    }
-  }
-
   public void loadCurrencies() {
     Currency[] currencies = Currency.values();
     for (int i=0; i<currencies.length; i++) {
       System.out.println(i + ": " + currencies[i]);
     }
+  }
+
+  public void createAccount() {
+    Currency currency = null;
+    boolean valid = false;
+    
+    while (!valid) {
+        loadCurrencies();
+        int userChoice = scanner.nextInt();
+
+        if (userChoice == 0) {
+            currency = Currency.EUR;
+            valid = true;
+        } else if (userChoice == 1) {
+            currency = Currency.GBP;
+            valid = true;
+        } else if (userChoice == 2) {
+            currency = Currency.USD;
+            valid = true;
+        } else {
+            System.out.println("Invalid selection. Please try again.");
+        }
+    }
+
+    PersonalAccount account = service.createAccount(currency);
+    System.out.println(account);
   }
 }

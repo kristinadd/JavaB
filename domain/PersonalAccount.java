@@ -10,7 +10,7 @@ public class PersonalAccount {
   public PersonalAccount(Currency currency) {
     this.id = idCount++;
     this.balance = 0.00;
-    this.currency = currency;
+    this.currency = currency;  // can't be null
     this.accountNumber = accountNumberCount++;
   }
 
