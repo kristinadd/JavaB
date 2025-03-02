@@ -66,6 +66,7 @@ public class AccountManager {
     boolean valid = false;
     
     while (!valid) {
+      System.out.println("Please select the currency for your new account:");
         loadCurrencies();
         int userChoice = scanner.nextInt();
 
