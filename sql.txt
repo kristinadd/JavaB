@@ -1,8 +1,0 @@
-CREATE TABLE PersonalAccount (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    balance DECIMAL(10,2) DEFAULT 0.0,
-    currency VARCHAR(10) NOT NULL,
-    accountNumber INT
-);
-
-
