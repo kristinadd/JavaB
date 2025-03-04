@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class AccountManager {
   private static AccountManager instance = new AccountManager();
-  private PersonalAccountService service = new PersonalAccountService();
+  private PersonalAccountFactory factory = PersonalAccountFactory.getInstance();
   private Scanner scanner = new Scanner(System.in);
 
   private AccountManager() {}
@@ -22,7 +22,7 @@ public class AccountManager {
             createAccount();
           break;
         case 1:
-            System.out.println("Option is not available");
+            deposit(0.00);
             break;
         case 2:
           System.out.println("Option is not available");
@@ -84,7 +84,12 @@ public class AccountManager {
         }
     }
 
-    PersonalAccount account = service.createAccount(currency);
+    PersonalAccount account = factory.createPersonalAccount(currency);
     System.out.println(account);
+  }
+
+  public void deposit(Double amount) {
+    PersonalAccount account = factory.createPersonalAccount(Currency.EUR); // TODO
+    account.deposit(0);
   }
 }

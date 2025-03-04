@@ -9,7 +9,7 @@ public class PersonalAccount {
   public PersonalAccount(Currency currency) {
     this.id = idCount++;
     this.balance = 0.00;
-    if (currency == null) {
+    if (currency == null) { // don't allow objects with null currency, code level
       throw new IllegalArgumentException("Currency cannot be null");
     }
     this.currency = currency;
