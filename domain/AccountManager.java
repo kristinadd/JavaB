@@ -1,9 +1,10 @@
+import java.math.BigDecimal;
 import java.util.Scanner;
-
 public class AccountManager {
   private static AccountManager instance = new AccountManager();
   private PersonalAccountFactory factory = PersonalAccountFactory.getInstance();
   private Scanner scanner = new Scanner(System.in);
+  private PersonalAccount account;
 
   private AccountManager() {}
 
@@ -22,12 +23,14 @@ public class AccountManager {
             createAccount();
           break;
         case 1:
-            deposit(0.00);
-            break;
+            checkBalanace();
         case 2:
-          System.out.println("Option is not available");
+            deposit();
             break;
         case 3:
+            withdraw();
+            break;
+        case 4:
           keepRuning = false;
           System.out.println("👋 Bye");
           break;
@@ -44,6 +47,7 @@ public class AccountManager {
 
     String[] options = {
       "Create account",
+      "Check balance",
       "Deposit",
       "Withdraw",
       "Exit"
@@ -84,12 +88,29 @@ public class AccountManager {
         }
     }
 
-    PersonalAccount account = factory.createPersonalAccount(currency);
+    account = factory.createPersonalAccount(currency);
     System.out.println(account);
   }
 
-  public void deposit(Double amount) {
-    PersonalAccount account = factory.createPersonalAccount(Currency.EUR); // TODO
-    account.deposit(0);
+  public void deposit() {
+    System.out.println("Enter amount: ");
+    Double userChoiceAmount = scanner.nextDouble();
+    account.deposit(userChoiceAmount);
+    System.out.println(account);
+  }
+
+  public void withdraw() {
+    System.out.println("Enter amount");
+    Double userChoiceAmount = scanner.nextDouble();
+    account.withdraw(userChoiceAmount);
+    System.out.println(account);
+  }
+
+  public double checkBalanace() {
+    if (account != null){
+      return account.getBalance();
+    } else {
+      throw new IllegalStateException("Account has not been created yet. Cannot check balance.");
+    }
   }
 }
