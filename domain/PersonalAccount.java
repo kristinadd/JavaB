@@ -1,6 +1,7 @@
 public class PersonalAccount {
-  private static int idCount = 1;
+  private static int idCount = 1; // handle in db, upon restart it will start from 1 again
   private static int accountNumberCount = 11111;
+  //
   private int id;
   private Double balance;
   private Currency currency;
@@ -9,7 +10,7 @@ public class PersonalAccount {
   public PersonalAccount(Currency currency) {
     this.id = idCount++;
     this.balance = 0.00;
-    if (currency == null) { // don't allow objects with null currency, code level
+    if (currency == null) {
       throw new IllegalArgumentException("Currency cannot be null");
     }
     this.currency = currency;

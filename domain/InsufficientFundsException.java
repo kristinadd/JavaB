@@ -1,5 +1,6 @@
+// prefer checked exception over unchecked
 public class InsufficientFundsException extends RuntimeException { // Exception is checked; RuntimeException is unchecked
-  public InsufficientFundsException(String message) {
+  public InsufficientFundsException(String message) { 
       super(message);
   }
 }
