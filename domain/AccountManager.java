@@ -1,4 +1,4 @@
-import java.math.BigDecimal;
+import java.util.OptionalDouble;
 import java.util.Scanner;
 public class AccountManager {
   private static AccountManager instance = new AccountManager();
@@ -23,7 +23,8 @@ public class AccountManager {
             createAccount();
           break;
         case 1:
-            checkBalanace();
+            checkBalance();
+            break;
         case 2:
             deposit();
             break;
@@ -106,11 +107,12 @@ public class AccountManager {
     System.out.println(account);
   }
 
-  public double checkBalanace() {
-    if (account != null){
-      return account.getBalance();
+  public OptionalDouble checkBalance() {
+    if (account != null) {
+      return OptionalDouble.of(account.getBalance());
     } else {
-      throw new IllegalStateException("Account has not been created yet. Cannot check balance.");
+      System.out.println("Account has not been created yet. Please create an account first.");
+      return OptionalDouble.empty();
     }
   }
 }
