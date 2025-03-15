@@ -9,11 +9,11 @@ public class PersonalAccountFactory {
 
   public PersonalAccount createPersonalAccount(Currency currency) {
     switch (currency) {
-      case Currency.EUR:
+      case EUR:
         return new PersonalAccount(Currency.EUR);
-      case Currency.GBP:
+      case GBP:
         return new PersonalAccount(Currency.GBP);
-      case Currency.USD:
+      case USD:
         return new PersonalAccount(Currency.USD);
       default:
         throw new IllegalArgumentException("Currency must be from the supported currencies.");

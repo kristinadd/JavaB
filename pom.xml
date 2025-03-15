@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- Replace these values with something meaningful for your project -->
+  <groupId>com.java-bank</groupId>
+  <artifactId>java-bank</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+
+
+  <name>java-bank</name>
+  <description>A simple banking application</description>
+
+  <!-- Properties for Java version (optional but recommended) -->
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>17</maven.compiler.source> <!-- or your version -->
+    <maven.compiler.target>17</maven.compiler.target> <!-- or your version -->
+  </properties>
+
+
+  <dependencies>
+
+    <dependency>
+      <groupId>com.datastax.oss</groupId>
+      <artifactId>java-driver-core</artifactId>
+      <version>4.15.0</version>
+    </dependency>
+
+    <!-- Add any other libraries your project needs -->
+  </dependencies>
+
+  <!-- Build plugins, for example, the Maven compiler plugin -->
+  <build>
+    <plugins>
+      <!-- Maven Compiler Plugin: compiles your Java code -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+        </configuration>
+      </plugin>
+
+      <!-- (Optional) Maven Shade Plugin or Maven Assembly Plugin 
+           if you want to create a fat/uber JAR that includes all dependencies.
+           This is useful for running your project as a standalone JAR.
+      -->
+      <!--
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.4</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      -->
+    </plugins>
+  </build>
+
+</project>
