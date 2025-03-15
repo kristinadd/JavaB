@@ -1,6 +1,7 @@
 /Users/kristinadocheva/java-bank/src/main/java/domain/PersonalAccount.java
 /Users/kristinadocheva/java-bank/src/main/java/domain/Main.java
 /Users/kristinadocheva/java-bank/src/main/java/domain/InsufficientFundsException.java
+/Users/kristinadocheva/java-bank/src/main/java/dao/CassandraConnection.java
 /Users/kristinadocheva/java-bank/src/main/java/domain/Currency.java
 /Users/kristinadocheva/java-bank/src/main/java/domain/AccountManager.java
 /Users/kristinadocheva/java-bank/src/main/java/domain/PersonalAccountFactory.java

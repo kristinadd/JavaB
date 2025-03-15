@@ -1,7 +1,8 @@
-PersonalAccount.class
-Main.class
-AccountManager.class
-PersonalAccountFactory$1.class
-Currency.class
-InsufficientFundsException.class
-PersonalAccountFactory.class
+domain/InsufficientFundsException.class
+domain/PersonalAccount.class
+domain/PersonalAccountFactory.class
+domain/PersonalAccountFactory$1.class
+dao/CassandraConnection.class
+domain/Currency.class
+domain/AccountManager.class
+domain/Main.class
