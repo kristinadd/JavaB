@@ -1,3 +1,5 @@
+package domain;
+
 import java.util.OptionalDouble;
 import java.util.Scanner;
 public class AccountManager {

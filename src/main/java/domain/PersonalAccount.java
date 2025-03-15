@@ -1,3 +1,5 @@
+package domain;
+
 public class PersonalAccount {
   private static int idCount = 1; // handle in db, upon restart it will start from 1 again
   private static int accountNumberCount = 11111;

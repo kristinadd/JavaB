@@ -1,3 +1,4 @@
+package domain;
 public class PersonalAccountFactory {
   private static PersonalAccountFactory instance = new PersonalAccountFactory();
 
