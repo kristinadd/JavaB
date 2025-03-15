@@ -1,4 +1,5 @@
 domain/InsufficientFundsException.class
+dao/CassandraTestInsert.class
 domain/PersonalAccount.class
 domain/PersonalAccountFactory.class
 domain/PersonalAccountFactory$1.class
