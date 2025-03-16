@@ -12,11 +12,11 @@ public class PersonalAccount {
   private Instant updatedAt;
 
   public PersonalAccount(Currency currency) {
-      this.id = UUID.randomUUID();
-      this.balance = BigDecimal.ZERO;
-      this.currency = currency;
-      this.createdAt = Instant.now();
-      this.updatedAt = Instant.now();
+    this.id = UUID.randomUUID();
+    this.balance = BigDecimal.ZERO;
+    this.currency = currency;
+    this.createdAt = Instant.now();
+    this.updatedAt = Instant.now();
   }
 
   public UUID getId() {
@@ -29,6 +29,14 @@ public class PersonalAccount {
 
   public Currency getCurrency() {
     return currency;
+  }
+
+  public Instant getCreatedAt() {
+    return createdAt;
+  }
+
+  public Instant getUpdatedAt() {
+    return updatedAt;
   }
 
   public BigDecimal deposit(BigDecimal amount) {
@@ -53,13 +61,13 @@ public class PersonalAccount {
   @Override
   public String toString() {
       return String.format(
-          "PersonalAccount {\n" +
+          "PersonalAccount \n" +
           "  id: %s,\n" +
           "  balance: %.2f,\n" +
           "  currency: %s,\n" +
           "  createdAt: %s,\n" +
           "  updatedAt: %s\n" +
-          "}",
+          "",
           id,
           balance.doubleValue(),
           currency,

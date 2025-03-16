@@ -3,11 +3,14 @@ package domain;
 import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.Scanner;
+
+import dao.PersonalAccountDAO;
 public class AccountManager {
   private static AccountManager instance = new AccountManager();
   private PersonalAccountFactory factory = PersonalAccountFactory.getInstance();
   private Scanner scanner = new Scanner(System.in);
   private PersonalAccount account;
+  private PersonalAccountDAO dao = new PersonalAccountDAO();
 
   private AccountManager() {}
 
@@ -24,7 +27,7 @@ public class AccountManager {
       switch (userChoice) {
         case 0:
             createAccount();
-          break;
+            break;
         case 1:
             checkBalance();
             break;
@@ -94,6 +97,7 @@ public class AccountManager {
 
     account = factory.createPersonalAccount(currency);
     System.out.println(account);
+    dao.create(account);
   }
 
   public void deposit() {
