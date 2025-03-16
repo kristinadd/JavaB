@@ -1,6 +1,7 @@
 package domain;
 
-import java.util.OptionalDouble;
+import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.Scanner;
 public class AccountManager {
   private static AccountManager instance = new AccountManager();
@@ -97,24 +98,24 @@ public class AccountManager {
 
   public void deposit() {
     System.out.println("Enter amount: ");
-    Double userChoiceAmount = scanner.nextDouble();
+    BigDecimal userChoiceAmount = scanner.nextBigDecimal();
     account.deposit(userChoiceAmount);
     System.out.println(account);
   }
 
   public void withdraw() {
     System.out.println("Enter amount");
-    Double userChoiceAmount = scanner.nextDouble();
+    BigDecimal userChoiceAmount = scanner.nextBigDecimal();
     account.withdraw(userChoiceAmount);
     System.out.println(account);
   }
 
-  public OptionalDouble checkBalance() {
+  public Optional<BigDecimal> checkBalance() {
     if (account != null) {
-      return OptionalDouble.of(account.getBalance());
+        return Optional.of(account.getBalance());
     } else {
-      System.out.println("Account has not been created yet. Please create an account first.");
-      return OptionalDouble.empty();
+        System.out.println("Account has not been created yet. Please create an account first.");
+        return Optional.empty();
     }
   }
 }

@@ -26,12 +26,12 @@ public class CassandraSessionFactory {
         String host = props.getProperty("CASSANDRA_HOST", "localhost");
         int port = Integer.parseInt(props.getProperty("CASSANDRA_PORT", "9042"));
         String datacenter = props.getProperty("CASSANDRA_DATACENTER", "datacenter1");
-        // String keyspace = props.getProperty("CASSANDRA_KEYSPACE", "javabank");
+        String keyspace = props.getProperty("CASSANDRA_KEYSPACE", "javabank");
 
         return CqlSession.builder()
                 .addContactPoint(new InetSocketAddress(host, port))
                 .withLocalDatacenter(datacenter)
-                // .withKeyspace(keyspace) --> specific keyspace
+                .withKeyspace(keyspace) // use specific keyspace
                 .build();
     }
 }

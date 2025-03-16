@@ -8,17 +8,17 @@ import java.util.UUID;
 
 public class CassandraTestInsert {
     public static void main(String[] args) {
-        // Obtain a CqlSession using our CassandraSessionFactory singleton
         try (CqlSession session = CassandraSessionFactory.instance().getSession()) {
-            System.out.println("Connected to Cassandra!");
+            System.out.println("✅ Connected to Cassandra!");
 
             // Create the table "account" in the 'javabank' keyspace if it doesn't already exist.
             // Here we use the fully qualified table name (keyspace.table) since the session may not have a default keyspace.
             String createTableQuery = "CREATE TABLE IF NOT EXISTS javabank.account (" +
-                                      "account_id UUID PRIMARY KEY, " +
-                                      "account_holder text, " +
+                                      "id UUID PRIMARY KEY, " +
                                       "balance decimal, " +
-                                      "opened_date timestamp" +
+                                      "currency text" +
+                                      "created_at timestamp" +
+                                      "Updated_at timestamp" +
                                       ");";
             session.execute(createTableQuery);
             System.out.println("Table 'account' created (if it did not exist).");
@@ -53,6 +53,7 @@ public class CassandraTestInsert {
                 System.out.println("Record not found.");
             }
         } catch (Exception e) {
+            System.out.println("❌ Connection failed!");
             e.printStackTrace();
         }
     }

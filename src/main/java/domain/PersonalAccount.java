@@ -1,29 +1,29 @@
 package domain;
 
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.UUID;
+
 public class PersonalAccount {
-  private static int idCount = 1; // handle in db, upon restart it will start from 1 again
-  private static int accountNumberCount = 11111;
-  //
-  private int id;
-  private Double balance;
+  private UUID id;
+  private BigDecimal balance;
   private Currency currency;
-  private int accountNumber;
+  private Instant createdAt;
+  private Instant updatedAt;
 
   public PersonalAccount(Currency currency) {
-    this.id = idCount++;
-    this.balance = 0.00;
-    if (currency == null) {
-      throw new IllegalArgumentException("Currency cannot be null");
-    }
-    this.currency = currency;
-    this.accountNumber = accountNumberCount++;
+      this.id = UUID.randomUUID();
+      this.balance = BigDecimal.ZERO;
+      this.currency = currency;
+      this.createdAt = Instant.now();
+      this.updatedAt = Instant.now();
   }
 
-  public int getId() {
+  public UUID getId() {
     return id;
   }
 
-  public double getBalance() {
+  public BigDecimal getBalance() {
     return balance;
   }
 
@@ -31,36 +31,40 @@ public class PersonalAccount {
     return currency;
   }
 
-  public int getAccountNumber() {
-    return accountNumber;
-  }
-
-  public double deposit(double amount) {
-    if (amount > 0.00) {
-      balance = balance + amount;
+  public BigDecimal deposit(BigDecimal amount) {
+    if (amount.compareTo(BigDecimal.ZERO) > 0) {
+        balance = balance.add(amount);
     }
     return balance;
   }
 
-  public double withdraw(double amount) {
-    if (amount <= 0) {
+
+  public BigDecimal withdraw(BigDecimal amount) {
+    if (amount.compareTo(BigDecimal.ZERO) <= 0) {
         throw new IllegalArgumentException("Withdrawal amount must be positive.");
     }
-    if (amount > balance) {
+    if (amount.compareTo(balance) > 0) {
         throw new InsufficientFundsException("Insufficient funds. Your current balance is: " + balance);
     }
-    balance -= amount;
+    balance = balance.subtract(amount);
     return balance;
   }
 
   @Override
   public String toString() {
-    return String.format(
-      "id: %d\nbalance: %.2f\ncurrency: %s\naccountNumber: %d", 
-      this.id, 
-      this.balance, 
-      this.currency, 
-      this.accountNumber
-    );
-  }
+      return String.format(
+          "PersonalAccount {\n" +
+          "  id: %s,\n" +
+          "  balance: %.2f,\n" +
+          "  currency: %s,\n" +
+          "  createdAt: %s,\n" +
+          "  updatedAt: %s\n" +
+          "}",
+          id,
+          balance.doubleValue(),
+          currency,
+          createdAt,
+          updatedAt
+      );
+  }  
 }
