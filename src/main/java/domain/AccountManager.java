@@ -3,7 +3,9 @@ package domain;
 import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.UUID;
 import java.util.Currency;
+import java.util.List;
 
 import dao.PersonalAccountDAO;
 public class AccountManager {
@@ -24,6 +26,7 @@ public class AccountManager {
     while (keepRuning) {
       mainMenu();
       int userChoice = scanner.nextInt();
+      scanner.nextLine(); // consume the remaining newline
 
       switch (userChoice) {
         case 0:
@@ -42,6 +45,13 @@ public class AccountManager {
           keepRuning = false;
           System.out.println("👋 Bye");
           break;
+        case 5:
+          String userChoice2 = scanner.nextLine();
+          read(userChoice2);
+          break;
+          case 6:
+            readAll();
+            break;
         default:
           System.out.println("Invalid choice. Please try again.");
       }
@@ -58,7 +68,9 @@ public class AccountManager {
       "Check balance",
       "Deposit",
       "Withdraw",
-      "Exit"
+      "Exit",
+      "Read account",
+      "Read all"
     };
 
     for (int i=0; i<options.length; i++) {
@@ -121,5 +133,22 @@ public class AccountManager {
         System.out.println("Account has not been created yet. Please create an account first.");
         return Optional.empty();
     }
+  }
+
+  public PersonalAccount read(String id) {
+    UUID uuid = UUID.fromString(id);
+
+    account = dao.readOne(uuid);
+    System.out.println(account);
+    return account;
+  }
+
+  public List<PersonalAccount> readAll() {
+    List<PersonalAccount> accounts = dao.readAll();
+
+    for (PersonalAccount account : accounts) {
+      System.out.println(account);
+    }
+    return accounts;
   }
 }
