@@ -18,7 +18,6 @@ public class PersonalAccountDAO {
     }
 
     public PersonalAccount create(PersonalAccount account) { // handle exception 
-
         String insertQuery = "INSERT INTO javabank.account (id, balance, created_at, currency, updated_at) " +
                              "VALUES (?, ?, ?, ?, ?);";
 
@@ -58,8 +57,7 @@ public class PersonalAccountDAO {
       return account;
     }
 
-    public List<PersonalAccount> readAll() {
-
+    public List<PersonalAccount> readAll() { // exception
         String query = "SELECT * FROM javabank.account;";
         PreparedStatement preparedStatement = session.prepare(query);
         BoundStatement boundStatement = preparedStatement.bind();
@@ -76,5 +74,18 @@ public class PersonalAccountDAO {
             accounts.add(account);
         }
         return accounts;
+    }
+
+    public void delete(UUID id) {
+
+      String query = "DELETE FROM javabank.account WHERE id = ?;";
+
+      PreparedStatement preparedStatement = session.prepare(query);
+      BoundStatement boundStatement = preparedStatement.bind(id);
+      session.execute(boundStatement);
+    }
+
+    public void update() {
+      
     }
 }

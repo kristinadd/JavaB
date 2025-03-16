@@ -30,7 +30,7 @@ public class AccountManager {
 
       switch (userChoice) {
         case 0:
-            createAccount();
+            create();
             break;
         case 1:
             checkBalance();
@@ -47,10 +47,14 @@ public class AccountManager {
           break;
         case 5:
           String userChoice2 = scanner.nextLine();
-          read(userChoice2);
+          readOne(userChoice2);
           break;
           case 6:
             readAll();
+            break;
+            case 7:
+            userChoice2 = scanner.nextLine();
+            delete(userChoice2);
             break;
         default:
           System.out.println("Invalid choice. Please try again.");
@@ -70,7 +74,9 @@ public class AccountManager {
       "Withdraw",
       "Exit",
       "Read account",
-      "Read all"
+      "Read all",
+      "Delete",
+      "Update"
     };
 
     for (int i=0; i<options.length; i++) {
@@ -85,7 +91,7 @@ public class AccountManager {
     }
   }
 
-  public void createAccount() {
+  public void create() {
     Currency currency = null;
     boolean valid = false;
     
@@ -135,7 +141,7 @@ public class AccountManager {
     }
   }
 
-  public PersonalAccount read(String id) {
+  public PersonalAccount readOne(String id) {
     UUID uuid = UUID.fromString(id);
 
     account = dao.readOne(uuid);
@@ -150,5 +156,14 @@ public class AccountManager {
       System.out.println(account);
     }
     return accounts;
+  }
+
+  public void delete(String id) {
+    UUID uuid = UUID.fromString(id);
+    dao.delete(uuid);
+  }
+
+  public void update() {
+
   }
 }
