@@ -3,6 +3,7 @@ package domain;
 import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.Currency;
 
 import dao.PersonalAccountDAO;
 public class AccountManager {
@@ -66,9 +67,9 @@ public class AccountManager {
   }
 
   public void loadCurrencies() {
-    Currency[] currencies = Currency.values();
-    for (int i=0; i<currencies.length; i++) {
-      System.out.println(i + ": " + currencies[i]);
+    String[] currencyCodes = {"EUR", "GBP", "USD"};
+    for (int i = 0; i < currencyCodes.length; i++) {
+      System.out.println(i + ": " + currencyCodes[i]);
     }
   }
 
@@ -82,14 +83,13 @@ public class AccountManager {
         int userChoice = scanner.nextInt();
 
         if (userChoice == 0) {
-            currency = Currency.EUR;
+            currency = Currency.getInstance("EUR");
             valid = true;
         } else if (userChoice == 1) {
-            currency = Currency.GBP;
+            currency = Currency.getInstance("GBP");
             valid = true;
         } else if (userChoice == 2) {
-            currency = Currency.USD;
-            valid = true;
+            currency = Currency.getInstance("USD");
         } else {
             System.out.println("Invalid selection. Please try again.");
         }

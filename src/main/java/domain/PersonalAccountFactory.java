@@ -1,4 +1,5 @@
 package domain;
+import java.util.Currency;
 public class PersonalAccountFactory {
   private static PersonalAccountFactory instance = new PersonalAccountFactory();
 
@@ -9,13 +10,13 @@ public class PersonalAccountFactory {
   }
 
   public PersonalAccount createPersonalAccount(Currency currency) {
-    switch (currency) {
-      case EUR:
-        return new PersonalAccount(Currency.EUR);
-      case GBP:
-        return new PersonalAccount(Currency.GBP);
-      case USD:
-        return new PersonalAccount(Currency.USD);
+    switch (currency.getCurrencyCode()) {
+      case "EUR":
+        return new PersonalAccount(Currency.getInstance("EUR"));
+      case "GBP":
+        return new PersonalAccount(Currency.getInstance("GBP"));
+      case "USD":
+        return new PersonalAccount(Currency.getInstance("USD"));
       default:
         throw new IllegalArgumentException("Currency must be from the supported currencies.");
     }

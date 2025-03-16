@@ -3,8 +3,6 @@ dao/CassandraTestInsert.class
 dao/PersonalAccountDAO.class
 domain/PersonalAccount.class
 domain/PersonalAccountFactory.class
-domain/PersonalAccountFactory$1.class
 dao/CassandraSessionFactory.class
-domain/Currency.class
 domain/AccountManager.class
 domain/Main.class
