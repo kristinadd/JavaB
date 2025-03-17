@@ -163,7 +163,7 @@ public class AccountManager {
     dao.delete(uuid);
   }
 
-  public void update() {
-
+  public PersonalAccount update(PersonalAccount account) {
+    return dao.update(account);
   }
 }

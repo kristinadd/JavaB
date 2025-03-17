@@ -4,11 +4,13 @@ import java.util.UUID;
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.cql.*;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
 import domain.PersonalAccount;
+import jnr.ffi.annotations.In;
 
 public class PersonalAccountDAO {
     private CqlSession session;
@@ -76,7 +78,7 @@ public class PersonalAccountDAO {
         return accounts;
     }
 
-    public void delete(UUID id) {
+    public void delete(UUID id) { //exception
 
       String query = "DELETE FROM javabank.account WHERE id = ?;";
 
@@ -85,7 +87,22 @@ public class PersonalAccountDAO {
       session.execute(boundStatement);
     }
 
-    public void update() {
-      
+    // In Cassandra, an update is performed using an UPDATE statement (which works as an upsert) rather than a traditional SQL transaction. 
+    public PersonalAccount update(PersonalAccount account) { // exception
+        String updateQuery = "UPDATE javabank.account SET balance = ?, updated_at = ? WHERE id = ?;";
+        PreparedStatement preparedStatement = session.prepare(updateQuery);
+        
+        BoundStatement boundStatement = preparedStatement.bind(
+            account.getBalance(),
+            Instant.now(),
+            account.getId()
+        );
+        
+        session.execute(boundStatement);
+        System.out.println("✅ Record updated with id: " + account.getId());
+        
+        return account;
     }
+
 }
+
