@@ -8,12 +8,14 @@ import java.util.Currency;
 import java.util.List;
 
 import dao.PersonalAccountDAO;
+import dao.PersonalAccountService;
 public class AccountManager {
   private static AccountManager instance = new AccountManager();
   private PersonalAccountFactory factory = PersonalAccountFactory.getInstance();
   private Scanner scanner = new Scanner(System.in);
   private PersonalAccount account;
-  private PersonalAccountDAO dao = new PersonalAccountDAO();
+  // private PersonalAccountDAO dao = new PersonalAccountDAO();
+  private PersonalAccountService service = new PersonalAccountService();
 
   private AccountManager() {}
 
@@ -50,11 +52,11 @@ public class AccountManager {
           readOne(userChoice2);
           break;
           case 6:
-            readAll();
+            // readAll();
             break;
             case 7:
             userChoice2 = scanner.nextLine();
-            delete(userChoice2);
+            // delete(userChoice2);
             break;
         default:
           System.out.println("Invalid choice. Please try again.");
@@ -115,7 +117,7 @@ public class AccountManager {
 
     account = factory.createPersonalAccount(currency);
     System.out.println(account);
-    dao.create(account);
+    // dao.create(account);
   }
 
   public void deposit() {
@@ -144,26 +146,26 @@ public class AccountManager {
   public PersonalAccount readOne(String id) {
     UUID uuid = UUID.fromString(id);
 
-    account = dao.readOne(uuid);
+    account = service.readOne(uuid);
     System.out.println(account);
     return account;
   }
 
-  public List<PersonalAccount> readAll() {
-    List<PersonalAccount> accounts = dao.readAll();
+  // public List<PersonalAccount> readAll() {
+  //   List<PersonalAccount> accounts = dao.readAll();
 
-    for (PersonalAccount account : accounts) {
-      System.out.println(account);
-    }
-    return accounts;
-  }
+  //   for (PersonalAccount account : accounts) {
+  //     System.out.println(account);
+  //   }
+  //   return accounts;
+  // }
 
-  public void delete(String id) {
-    UUID uuid = UUID.fromString(id);
-    dao.delete(uuid);
-  }
+  // public void delete(String id) {
+  //   UUID uuid = UUID.fromString(id);
+  //   dao.delete(uuid);
+  // }
 
-  public PersonalAccount update(PersonalAccount account) {
-    return dao.update(account);
-  }
+  // public PersonalAccount update(PersonalAccount account) {
+  //   return dao.update(account);
+  // }
 }

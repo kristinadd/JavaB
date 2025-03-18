@@ -10,7 +10,6 @@ import java.util.Currency;
 import java.util.List;
 
 import domain.PersonalAccount;
-import jnr.ffi.annotations.In;
 
 public class PersonalAccountDAO {
     private CqlSession session;
