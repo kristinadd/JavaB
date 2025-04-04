@@ -2,7 +2,9 @@ package dao;
 
 import java.util.UUID;
 import com.datastax.oss.driver.api.core.CqlSession;
+import com.datastax.oss.driver.api.core.DriverException;
 import com.datastax.oss.driver.api.core.cql.*;
+import com.datastax.oss.driver.api.core.servererrors.QueryExecutionException;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -77,13 +79,17 @@ public class PersonalAccountDAO {
         return accounts;
     }
 
-    public void delete(UUID id) { //exception
+    public void delete(UUID id) {
+        String query = "DELETE FROM javabank.account WHERE id = ?";
 
-      String query = "DELETE FROM javabank.account WHERE id = ?;";
-
-      PreparedStatement preparedStatement = session.prepare(query);
-      BoundStatement boundStatement = preparedStatement.bind(id);
-      session.execute(boundStatement);
+        try {
+            PreparedStatement preparedStatement = session.prepare(query);
+            BoundStatement boundStatement = preparedStatement.bind(id);
+            session.execute(boundStatement);
+            System.out.println("✅ Delete account with is: " + id);
+        } catch (DriverException e) {
+            System.err.println("❌ Error executing delete: " + e.getMessage());
+        }
     }
 
     // In Cassandra, an update is performed using an UPDATE statement (which works as an upsert) rather than a traditional SQL transaction. 

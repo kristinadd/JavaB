@@ -1,7 +1,6 @@
 package domain;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 import java.util.Scanner;
 import java.util.UUID;
 import java.util.Currency;
@@ -11,10 +10,12 @@ import dao.PersonalAccountDAO;
 import dao.PersonalAccountService;
 public class AccountManager {
   private static AccountManager instance = new AccountManager();
+
   private PersonalAccountFactory factory = PersonalAccountFactory.getInstance();
   private Scanner scanner = new Scanner(System.in);
-  private PersonalAccount account;
-  // private PersonalAccountDAO dao = new PersonalAccountDAO();
+  private PersonalAccount account; // stateful; mutable account field
+  // If the user runs readOne() to load another account, it silently replaces account.
+  private PersonalAccountDAO dao = new PersonalAccountDAO();
   private PersonalAccountService service = new PersonalAccountService();
 
   private AccountManager() {}
@@ -48,15 +49,17 @@ public class AccountManager {
           System.out.println("👋 Bye");
           break;
         case 5:
+          System.out.println("Provide account id");
           String userChoice2 = scanner.nextLine();
           readOne(userChoice2);
           break;
           case 6:
-            // readAll();
+            readAll();
             break;
             case 7:
+            System.out.println("Provide account id");
             userChoice2 = scanner.nextLine();
-            // delete(userChoice2);
+            delete(userChoice2);
             break;
         default:
           System.out.println("Invalid choice. Please try again.");
@@ -115,11 +118,14 @@ public class AccountManager {
         }
     }
 
+    // just create the account don't set any fields
+    // AccountManager doesn't need to hold an instance of the account
     account = factory.createPersonalAccount(currency);
     System.out.println(account);
-    // dao.create(account);
+    dao.create(account);
   }
 
+  // should require account id
   public void deposit() {
     System.out.println("Enter amount: ");
     BigDecimal userChoiceAmount = scanner.nextBigDecimal();
@@ -127,6 +133,7 @@ public class AccountManager {
     System.out.println(account);
   }
 
+  // should require account id
   public void withdraw() {
     System.out.println("Enter amount");
     BigDecimal userChoiceAmount = scanner.nextBigDecimal();
@@ -134,12 +141,13 @@ public class AccountManager {
     System.out.println(account);
   }
 
-  public Optional<BigDecimal> checkBalance() {
+  public void checkBalance() {
     if (account != null) {
-        return Optional.of(account.getBalance());
+        // return Optional.of(account.getBalance());
+        System.out.println(account.getBalance());
     } else {
         System.out.println("Account has not been created yet. Please create an account first.");
-        return Optional.empty();
+        // return Optional.empty();
     }
   }
 
@@ -151,21 +159,39 @@ public class AccountManager {
     return account;
   }
 
-  // public List<PersonalAccount> readAll() {
-  //   List<PersonalAccount> accounts = dao.readAll();
+  public List<PersonalAccount> readAll() {
+    List<PersonalAccount> accounts = dao.readAll();
 
-  //   for (PersonalAccount account : accounts) {
-  //     System.out.println(account);
-  //   }
-  //   return accounts;
-  // }
+    for (PersonalAccount account : accounts) {
+      System.out.println(account);
+    }
+    return accounts;
+  }
 
-  // public void delete(String id) {
-  //   UUID uuid = UUID.fromString(id);
-  //   dao.delete(uuid);
-  // }
+  public void delete(String id) {
+    UUID uuid = UUID.fromString(id);
+    dao.delete(uuid);
+  }
 
-  // public PersonalAccount update(PersonalAccount account) {
-  //   return dao.update(account);
-  // }
+  public PersonalAccount update(PersonalAccount account) {
+    return dao.update(account);
+  }
 }
+
+
+// 1. Hidden state
+// The account field is shared across the whole application via the singleton.
+// If create(), readOne(), or any method mutates it, that change is global and affects other code using the singleton.
+
+// 2. Unpredictable side effects
+// If the user runs readOne() to load another account, it silently replaces account.
+// The user may then run deposit() — but it works on the new account, which could be unexpected.
+
+// 3. Thread safety problems
+// If this singleton were used in a multi-threaded environment (e.g. a web server), the shared account would be a race condition nightmare.
+// Multiple users’ actions could overwrite the same field concurrently.
+
+// 4. Poor scalability and testability
+// You can’t easily test methods like deposit() in isolation unless you’ve already initialized the account field beforehand.
+// This tightly couples user interaction flow with internal object state.
+

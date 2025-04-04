@@ -30,7 +30,7 @@ public class CassandraTestInsert {
             UUID accountId = UUID.randomUUID();
             BoundStatement boundInsert = preparedInsert.bind(
                     accountId,
-                    BigDecimal.valueOf(999.56),
+                    BigDecimal.valueOf(77.56),
                     "USD",
                     Instant.now(),
                     Instant.now()
