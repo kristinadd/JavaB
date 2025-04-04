@@ -130,6 +130,8 @@ public class AccountManager {
     System.out.println("Enter amount: ");
     BigDecimal userChoiceAmount = scanner.nextBigDecimal();
     account.deposit(userChoiceAmount);
+    // layered architecture ; separation of concern
+    service.update(account);
     System.out.println(account);
   }
 
@@ -138,6 +140,7 @@ public class AccountManager {
     System.out.println("Enter amount");
     BigDecimal userChoiceAmount = scanner.nextBigDecimal();
     account.withdraw(userChoiceAmount);
+    service.update(account);
     System.out.println(account);
   }
 
