@@ -38,21 +38,6 @@ public class CassandraTestInsert {
             session.execute(boundInsert);
             System.out.println("Record inserted with id: " + accountId);
 
-            // Optionally, query the record to verify it was inserted.
-    // String selectQuery = "SELECT account_id, account_holder, balance, opened_date FROM javabank.account WHERE account_id = ?;";
-    // PreparedStatement preparedSelect = session.prepare(selectQuery);
-    // BoundStatement boundSelect = preparedSelect.bind(accountId);
-    // ResultSet resultSet = session.execute(boundSelect);
-    // Row row = resultSet.one();
-    // if (row != null) {
-    //     System.out.println("Retrieved record:");
-    //     System.out.println("Account ID: " + row.getUuid("account_id"));
-    //     System.out.println("Account Holder: " + row.getString("account_holder"));
-    //     System.out.println("Balance: " + row.getBigDecimal("balance"));
-    //     System.out.println("Opened Date: " + row.getInstant("opened_date"));
-    // } else {
-    //     System.out.println("Record not found.");
-    // }
         } catch (Exception e) {
             System.out.println("❌ Connection failed!");
             e.printStackTrace();
