@@ -4,7 +4,6 @@ import java.util.UUID;
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.DriverException;
 import com.datastax.oss.driver.api.core.cql.*;
-import com.datastax.oss.driver.api.core.servererrors.QueryExecutionException;
 
 import java.time.Instant;
 import java.util.ArrayList;

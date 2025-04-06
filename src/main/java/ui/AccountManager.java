@@ -1,4 +1,4 @@
-package domain;
+package ui;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
@@ -8,19 +8,34 @@ import java.util.List;
 
 import dao.PersonalAccountDAO;
 import dao.PersonalAccountService;
+import domain.PersonalAccount;
+import domain.PersonalAccountFactory;
+
 public class AccountManager {
-  private static AccountManager instance = new AccountManager();
 
   private PersonalAccountFactory factory = PersonalAccountFactory.getInstance();
   private Scanner scanner = new Scanner(System.in);
-  private PersonalAccount account; // stateful; mutable account field
-  // If the user runs readOne() to load another account, it silently replaces account.
-  private PersonalAccountDAO dao = new PersonalAccountDAO();
-  private PersonalAccountService service = new PersonalAccountService();
+  private PersonalAccount account;
 
-  private AccountManager() {}
+  private static AccountManager instance;
+  private PersonalAccountDAO dao;
+  private PersonalAccountService service;
+
+  private AccountManager(PersonalAccountDAO dao, PersonalAccountService service) {
+    this.dao = dao;
+    this.service = service;
+  }
+
+  public static void initialize(PersonalAccountDAO dao, PersonalAccountService service) {
+    if (instance == null) {
+      instance = new AccountManager(dao, service);
+    }
+  }
 
   public static AccountManager getInstance() {
+    if (instance == null) {
+      throw new IllegalStateException("AccountManager not initialized");
+    }
     return instance;
   }
 
@@ -113,6 +128,7 @@ public class AccountManager {
             valid = true;
         } else if (userChoice == 2) {
             currency = Currency.getInstance("USD");
+            valid = true;
         } else {
             System.out.println("Invalid selection. Please try again.");
         }
