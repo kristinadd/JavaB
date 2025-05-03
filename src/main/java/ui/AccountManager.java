@@ -10,6 +10,7 @@ import dao.PersonalAccountDAO;
 import dao.PersonalAccountService;
 import domain.PersonalAccount;
 import domain.PersonalAccountFactory;
+import domain.InsufficientFundsException;
 
 public class AccountManager {
 
@@ -155,9 +156,14 @@ public class AccountManager {
   public void withdraw() {
     System.out.println("Enter amount");
     BigDecimal userChoiceAmount = scanner.nextBigDecimal();
+    
+    try {
     account.withdraw(userChoiceAmount);
     service.update(account);
     System.out.println(account);
+    } catch (InsufficientFundsException e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   public void checkBalance() {
@@ -208,9 +214,9 @@ public class AccountManager {
 
 // 3. Thread safety problems
 // If this singleton were used in a multi-threaded environment (e.g. a web server), the shared account would be a race condition nightmare.
-// Multiple users’ actions could overwrite the same field concurrently.
+// Multiple users' actions could overwrite the same field concurrently.
 
 // 4. Poor scalability and testability
-// You can’t easily test methods like deposit() in isolation unless you’ve already initialized the account field beforehand.
+// You can't easily test methods like deposit() in isolation unless you've already initialized the account field beforehand.
 // This tightly couples user interaction flow with internal object state.
 

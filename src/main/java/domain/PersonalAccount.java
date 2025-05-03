@@ -70,7 +70,7 @@ public class PersonalAccount {
     return balance;
   }
 
-  public BigDecimal withdraw(BigDecimal amount) {
+  public BigDecimal withdraw(BigDecimal amount) throws InsufficientFundsException {
     if (amount.compareTo(BigDecimal.ZERO) <= 0) {
       throw new IllegalArgumentException("Withdrawal amount must be positive.");
     }
