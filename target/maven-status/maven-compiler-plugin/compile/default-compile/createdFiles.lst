@@ -1,9 +1,10 @@
+ui/Main.class
 dao/PersonalAccountService.class
 domain/InsufficientFundsException.class
 dao/CassandraTestInsert.class
+ui/AccountManagerV2.class
+ui/AccountManager.class
 dao/PersonalAccountDAO.class
 domain/PersonalAccount.class
 domain/PersonalAccountFactory.class
 dao/CassandraSessionFactory.class
-domain/AccountManager.class
-domain/Main.class
