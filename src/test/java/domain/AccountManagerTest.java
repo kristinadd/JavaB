@@ -68,13 +68,10 @@ public class AccountManagerTest {
 
     @Test
     void testReadOne() {
-        // Setup
         when(service.readOne(TEST_UUID)).thenReturn(mockAccount);
         
-        // Execute
         PersonalAccount result = accountManager.readOne(TEST_UUID.toString());
         
-        // Verify
         assertNotNull(result);
         assertSame(mockAccount, result);
         verify(service).readOne(TEST_UUID);
@@ -82,15 +79,12 @@ public class AccountManagerTest {
 
     @Test
     void testReadAll() {
-        // Setup
         List<PersonalAccount> accounts = new ArrayList<>();
         accounts.add(mockAccount);
         when(dao.readAll()).thenReturn(accounts);
         
-        // Execute
         List<PersonalAccount> result = accountManager.readAll();
         
-        // Verify
         assertNotNull(result);
         assertEquals(1, result.size());
         assertSame(mockAccount, result.get(0));
@@ -99,22 +93,17 @@ public class AccountManagerTest {
 
     @Test
     void testDelete() {
-        // Execute
         accountManager.delete(TEST_UUID.toString());
         
-        // Verify
         verify(dao).delete(TEST_UUID);
     }
 
     @Test
     void testUpdate() {
-        // Setup
         when(dao.update(mockAccount)).thenReturn(mockAccount);
         
-        // Execute
         PersonalAccount result = accountManager.update(mockAccount);
-        
-        // Verify
+
         assertNotNull(result);
         assertSame(mockAccount, result);
         verify(dao).update(mockAccount);
