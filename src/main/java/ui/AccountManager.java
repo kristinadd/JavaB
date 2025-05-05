@@ -14,7 +14,7 @@ import domain.InsufficientFundsException;
 
 public class AccountManager {
 
-  private PersonalAccountFactory factory = PersonalAccountFactory.getInstance();
+  private PersonalAccountFactory factory;
   private Scanner scanner = new Scanner(System.in);
   private PersonalAccount account;
 
@@ -22,14 +22,15 @@ public class AccountManager {
   private PersonalAccountDAO dao;
   private PersonalAccountService service;
 
-  private AccountManager(PersonalAccountDAO dao, PersonalAccountService service) {
+  private AccountManager(PersonalAccountDAO dao, PersonalAccountService service, PersonalAccountFactory factory) {
     this.dao = dao;
     this.service = service;
+    this.factory = factory;
   }
 
-  public static void initialize(PersonalAccountDAO dao, PersonalAccountService service) {
+  public static void initialize(PersonalAccountDAO dao, PersonalAccountService service, PersonalAccountFactory factory) {
     if (instance == null) {
-      instance = new AccountManager(dao, service);
+      instance = new AccountManager(dao, service, factory);
     }
   }
 
