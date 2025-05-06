@@ -1,4 +1,4 @@
-package domain;
+package ui;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +14,8 @@ import java.util.ArrayList;
 
 import dao.PersonalAccountDAO;
 import dao.PersonalAccountService;
-import ui.AccountManager;
+import domain.PersonalAccount;
+import domain.PersonalAccountFactory;
 
 @ExtendWith(MockitoExtension.class)
 public class AccountManagerTest {
